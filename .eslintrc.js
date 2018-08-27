@@ -1,7 +1,7 @@
 // http://eslint.org/docs/user-guide/configuring
-
+// mierda de root a false
 module.exports = {
-  root: true,
+  root: false,
   parser: 'babel-eslint',
   parserOptions: {
     sourceType: 'module'

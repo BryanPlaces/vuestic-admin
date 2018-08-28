@@ -66,6 +66,8 @@
         type: String,
         default: 'horizontal'
       },
+      //publickey,
+      //privatekey,
       lastStepLabel: {default: 'Confirm'},
       onNext: {},
       onBack: {}

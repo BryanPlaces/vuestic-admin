@@ -15,7 +15,7 @@
         </div>
       </div>
       <div class="d-flex flex-column flex-lg-row align-items-center justify-content-between down-container">
-        <button class="btn btn-primary" v-on:click="login()">
+        <button class="btn btn-primary" v-on:click="login">
           {{'auth.login' | translate}}
         </button>
         <router-link class='link' :to="{name: 'signup'}">{{'auth.createAccount' | translate}}</router-link>
@@ -26,7 +26,6 @@
 
 <script>
 import axios from 'axios'
-
 export default {
   name: 'login',
   data () {
@@ -41,15 +40,16 @@ export default {
   },
   methods: {
     login () {
+      console.log("esta mierda entra")
       axios.post('http://localhost:4000/users/login', { 'email': this.input.email, 'password': this.input.password })
         .then(res => {
+          console.log("esta mierda entra x2")
           if (res.status === 200) {
-            console.log('mierdaaaaaaaaaaaa')
+            console.log("esta mierda entra x3")
             this.$router.replace({name: 'dashboard', params: { nombre: res.data.nombre, id: res.data.id, token: res.data.token }})
           }
         })
         .catch(function (error) {
-          alert('Correo o contraseña invalidas')
           console.log(error)
         })
     },

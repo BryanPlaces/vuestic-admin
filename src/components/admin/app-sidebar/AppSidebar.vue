@@ -9,7 +9,21 @@
           <span>{{ $t('menu.dashboard') }}</span>
         </span>
       </sidebar-link>
-      <sidebar-link-group>
+
+
+
+        <sidebar-link
+          :to="{ name: 'charts' }">
+          <span slot="title">
+          <span
+            class="sidebar-menu-item-icon vuestic-icon vuestic-icon-statistics"></span>
+
+            <span>{{ $t('menu.statistics') }}</span>
+          </span>
+        </sidebar-link>
+
+
+      <!-- <sidebar-link-group>
         <span slot="title">
           <span
             class="sidebar-menu-item-icon vuestic-icon vuestic-icon-statistics"></span>
@@ -27,8 +41,10 @@
             <span>{{ $t('menu.progressBars') }}</span>
           </span>
         </sidebar-link>
-      </sidebar-link-group>
-      <sidebar-link-group>
+      </sidebar-link-group> -->
+
+
+      <!-- <sidebar-link-group>
         <span slot="title">
           <span
             class="sidebar-menu-item-icon vuestic-icon vuestic-icon-forms"></span>
@@ -52,7 +68,7 @@
             <span>{{ $t('menu.mediumEditor') }}</span>
           </span>
         </sidebar-link>
-      </sidebar-link-group>
+      </sidebar-link-group>-->
       <sidebar-link
         :to="{ name: 'tables' }">
         <span slot="title">
@@ -61,7 +77,7 @@
           <span>{{ $t('menu.tables') }}</span>
         </span>
       </sidebar-link>
-      <sidebar-link-group>
+      <!--<sidebar-link-group>
         <span slot="title">
           <span
             class="sidebar-menu-item-icon vuestic-icon vuestic-icon-ui-elements"></span>
@@ -219,7 +235,7 @@
             <span>{{ $t('404 Pages') }}</span>
           </span>
         </sidebar-link>
-      </sidebar-link-group>
+      </sidebar-link-group>-->
     </template>
   </vuestic-sidebar>
 </template>

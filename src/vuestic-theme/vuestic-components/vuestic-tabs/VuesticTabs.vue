@@ -2,8 +2,7 @@
   <div class="vuestic-tabs">
     <div class="d-none d-md-block">
       <nav class="nav nav-pills row">
-        <div class="nav-item col" v-on:click="setActive(name)"
-             :class="{active: name === currentActive}" v-for="name in names">
+        <div class="nav-item col" v-on:click="setActive(name)" :class="{active: name === currentActive}" v-for="name in names">
           <span class="nav-link"><h5>{{name}}</h5></span>
         </div>
       </nav>

@@ -4,8 +4,8 @@
       :steps="steps"
       wizard-layout="vertical"    
       :wizard-type="wizardType"
-      publickey="publickey"
-      privatekey="privatekey"
+      v-bind:publickey="publickey"
+      v-bind:privatekey="privatekey"
       >
       <div slot="page1" class="form-wizard-tab-content">
         <h4>Insert your public key</h4>
@@ -99,6 +99,7 @@
 
 <script>
   import CountriesList from 'data/CountriesList'
+  import axios from 'axios'
 
   export default {
     name: 'setup-profile-tab',
@@ -151,7 +152,7 @@
     },    
     methods: {
       checkIsActive() {
-        axios.get('http://localhost:4000/secure/users/'+ this.$route.params.id, {
+        axios.get(process.env.ROOT_API +'/secure/users/'+ this.$route.params.id, {
           headers: {'Authorization': this.$route.params.token},
         }) 
         .then(res => {
@@ -164,7 +165,7 @@
       },
       insertKeys() {
         if (this.isActive == true) {
-          axios.patch('http://localhost:4000/secure/users/'+ this.$route.params.id, {publicAWSKey: this.publickey, privateAWSKey: this.privatekey}, {
+          axios.patch(process.env.ROOT_API +'/secure/users/'+ this.$route.params.id, {publicAWSKey: this.publickey, privateAWSKey: this.privatekey}, {
             headers: {'Authorization': this.$route.params.token},
           }) 
           .then(res => {

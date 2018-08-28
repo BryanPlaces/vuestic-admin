@@ -69,7 +69,7 @@ export default {
   methods: {
     insertUser () {
       if (this.input.password === this.input.passwordv) {
-        axios.post('http://localhost:4000/users', {'nombre': this.input.name, 'email': this.input.email, 'password': this.input.password})
+        axios.post(process.env.ROOT_API+'/users', {'nombre': this.input.name, 'email': this.input.email, 'password': this.input.password})
           .then(res => {
             this.input.message = 'Te has registrado satisfactoriamente. Por favor, verifica tu email para activar tu cuenta'
           })

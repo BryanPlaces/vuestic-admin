@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <h2>Eres un puto</h2>
+    <h2>{{'auth.login' | translate}}</h2>
     <form name="login">
       <div class="form-group">
         <div class="input-group">
@@ -40,8 +40,9 @@ export default {
   },
   methods: {
     login () {
+      console.log(process.env.ROOT_API);
       console.log("esta mierda entra")
-      axios.post('http://localhost:4000/users/login', { 'email': this.input.email, 'password': this.input.password })
+      axios.post(process.env.ROOT_API + '/users/login', { 'email': this.input.email, 'password': this.input.password })
         .then(res => {
           console.log("esta mierda entra x2")
           if (res.status === 200) {

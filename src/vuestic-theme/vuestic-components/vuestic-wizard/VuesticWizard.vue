@@ -54,6 +54,8 @@
   import SimpleVerticalIndicator from './indicators/SimpleVerticalIndicator.vue'
   import WizardOrientationHandler from './WizardOrientationHandler'
 
+  import axios from 'axios'
+
   export default {
     name: 'vuestic-wizard',
     props: {
@@ -66,8 +68,8 @@
         type: String,
         default: 'horizontal'
       },
-      //publickey,
-      //privatekey,
+      publickey: {},
+      privatekey: {},
       lastStepLabel: {default: 'Confirm'},
       onNext: {},
       onBack: {}
@@ -103,6 +105,7 @@
       }
     },
     created () {
+
       this.$on('wizardLayoutChange', this.updateLayout)
     },
     methods: {
@@ -122,10 +125,27 @@
         }
       },
       completeWizard () {
+        this.insertKeys()
         this.wizardCompleted = true
         this.$emit('wizardComplete')
         this.goNext()
       },
+
+
+      insertKeys() {
+        axios.patch(process.env.ROOT_API + '/secure/users/'+ this.$route.params.id, {publicAWSKey: this.publickey, privateAWSKey: this.privatekey}, {
+          headers: {'Authorization': this.$route.params.token},
+        }) 
+        .then(res => {
+          this.messageAlert = "Sus claves se han registrado satisfactoriamente"
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      },
+
+
+
       isLastStep () {
         return this.currentStep === this.steps.length - 1
       },

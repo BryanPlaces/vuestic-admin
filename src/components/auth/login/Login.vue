@@ -47,12 +47,13 @@ export default {
           console.log("esta mierda entra x2")
           if (res.status === 200) {
             console.log("esta mierda entra x3")
-            this.$router.replace({name: 'dashboard', params: { nombre: res.data.nombre, id: res.data.id, token: res.data.token }})
+            this.$router.replace({name: 'dashboard', params: { nombre: res.data.nombre, id: res.data.id, token: res.data.token, actualizado:false }})
           }
         })
         .catch(function (error) {
           console.log(error)
         })
+      console.log("esta mierda no hace post")  
     },
   }
 }

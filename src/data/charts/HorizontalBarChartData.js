@@ -1,21 +1,14 @@
 import store from 'vuex-store'
-
 let palette = store.getters.palette
 
 export default {
-  labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+  labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12','13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24','25','26','27'],
   datasets: [
     {
-      label: 'Vuestic Satisfaction Score',
-      backgroundColor: palette.warning,
-      borderColor: palette.transparent,
-      data: [80, 90, 50, 70, 60, 90, 50, 90, 80, 40, 72, 93]
-    },
-    {
-      label: 'Bulma Satisfaction Score',
+      label: 'AmortizedCost',
       backgroundColor: palette.danger,
       borderColor: palette.transparent,
-      data: [20, 30, 20, 40, 50, 40, 15, 60, 30, 20, 42, 53]
+      data: [80, 90, 50, 70, 60, 90, 50, 90, 80, 40, 72, 93]
     }
   ]
 }

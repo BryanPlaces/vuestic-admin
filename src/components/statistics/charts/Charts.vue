@@ -2,18 +2,18 @@
   <div class="charts-page">
     <div class="row">
       <div class="col-md-6">
-        <vuestic-widget class="chart-widget" :headerText="'charts.verticalBarChart' | translate">
+        <vuestic-widget class="chart-widget" :headerText="'Costs per day' | translate">
           <vuestic-chart :data="verticalBarChartData" type="vertical-bar"></vuestic-chart>
         </vuestic-widget>
       </div>
       <div class="col-md-6">
-        <vuestic-widget class="chart-widget" :headerText="'charts.horizontalBarChart' | translate">
+        <vuestic-widget class="chart-widget" :headerText="'Costs per month' | translate">
           <vuestic-chart :data="horizontalBarChartData" type="horizontal-bar"></vuestic-chart>
         </vuestic-widget>
       </div>
     </div>
 
-    <div class="row">
+    <!-- <div class="row">
       <div class="col-md-12">
         <vuestic-widget class="chart-widget" :headerText="'charts.lineChart' | translate">
           <vuestic-chart :data="lineChartData" type="line"></vuestic-chart>
@@ -40,7 +40,7 @@
           <vuestic-chart :data="bubbleChartData" type="bubble"></vuestic-chart>
         </vuestic-widget>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -52,6 +52,8 @@
   import VerticalBarChartData from 'data/charts/VerticalBarChartData'
   import HorizontalBarChartData from 'data/charts/HorizontalBarChartData'
   import SidebarLink from '../../admin/app-sidebar/components/SidebarLink'
+
+  import axios from 'axios'
 
   export default {
     name: 'charts',
@@ -66,9 +68,52 @@
         pieChartData: PieChartData,
         donutChartData: DonutChartData,
         verticalBarChartData: VerticalBarChartData,
-        horizontalBarChartData: HorizontalBarChartData
+        horizontalBarChartData: HorizontalBarChartData,
+        cost:'',
+        messageAlert: '',
+        publickey:'',
+        privatekey:''
       }
     },
+    created() {
+      this.getUser();
+    },
+    methods: {
+        
+        getUser() {
+            axios.get(`http://localhost:4000/secure/users/` + this.$route.params.id, {headers:{Authorization:this.$route.params.token}})
+                .then( res => {
+                    if (res.data.isActive == false) {
+                        this.messageAlert = "Tu correo no está verificado, por favor, verificalo para poder continuar"
+                    }else{
+                        if(res.data.publicAWSKey != null || res.data.publicAWSKey != "" && res.data.privateAWSKey != null || res.data.privateAWSKey != "") {
+                            this.publickey = res.data.publicAWSKey;
+                            this.privatekey = res.data.privateAWSKey;
+                            console.log("llamada a awsapiCall()")
+                            this.awsapiCall();
+                        }
+                    }
+
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        },
+
+      awsapiCall(){
+        axios.get('http://localhost:4000/awsapi/?publicAWSKey='+this.publickey+'&privateAWSKey='+ this.privatekey, {headers:{Authorization:this.$route.params.token}})
+        .then( res =>  {
+          this.cost=res.data.ResultsByTime
+          console.log(cost)
+          console.log('aaaaaaaaaaaaaaaaaaaa')
+          console.log(res)
+          
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      }
+    }
   }
 </script>
 

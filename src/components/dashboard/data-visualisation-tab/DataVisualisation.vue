@@ -1,11 +1,11 @@
 <template>
   <div class="data-visualisation-tab dashboard-tab">
     <div class="row">
-      <div class="col-md-6">
+      <!-- <div class="col-md-6">
         <div class="chart-container">
           <vuestic-chart v-bind:data="donutChartData" type="donut"></vuestic-chart>
         </div>
-      </div>
+      </div> -->
       <div class="col-md-6">
         <vuestic-data-table
           :apiMode="apiMode"

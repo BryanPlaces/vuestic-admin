@@ -69,14 +69,14 @@
           </span>
         </sidebar-link>
       </sidebar-link-group>-->
-      <sidebar-link
+      <!-- <sidebar-link
         :to="{ name: 'tables' }">
         <span slot="title">
           <span
             class="sidebar-menu-item-icon vuestic-icon vuestic-icon-tables"></span>
           <span>{{ $t('menu.tables') }}</span>
         </span>
-      </sidebar-link>
+      </sidebar-link> -->
       <!--<sidebar-link-group>
         <span slot="title">
           <span

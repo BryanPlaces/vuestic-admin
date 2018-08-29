@@ -2,7 +2,8 @@
   <div class="profile-dropdown col nav-item dropdown navbar-dropdown" v-dropdown>
     <a class="nav-link dropdown-toggle" href="#">
       <span class="profile-section-avatar-container">
-        <slot></slot>
+        <!-- <slot></slot> -->
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-5XEmnBH5vqCk_wKcEimr7svkRdEfrwU1OR-LqjdTqqGoq1qI" alt="">
       </span>
     </a>
     <div class="dropdown-menu last">

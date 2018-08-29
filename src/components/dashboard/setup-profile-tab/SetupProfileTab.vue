@@ -147,38 +147,8 @@
         isActive:''        
       }
     },
-    created() {
-      this.checkIsActive();
-    },    
+  
     methods: {
-      checkIsActive() {
-        axios.get(process.env.ROOT_API +'/secure/users/'+ this.$route.params.id, {
-          headers: {'Authorization': this.$route.params.token},
-        }) 
-        .then(res => {
-          console.log(res.data)
-          this.isActive = res.data.isActive;
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-      },
-      insertKeys() {
-        if (this.isActive == true) {
-          axios.patch(process.env.ROOT_API +'/secure/users/'+ this.$route.params.id, {publicAWSKey: this.publickey, privateAWSKey: this.privatekey}, {
-            headers: {'Authorization': this.$route.params.token},
-          }) 
-          .then(res => {
-            this.messageAlert = "Sus claves se han registrado satisfactoriamente"
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-        } else {
-          this.messageAlert = "Necesita verificar su cuenta para introducir sus claves"
-        }
-      },
-
       isFormFieldValid (field) {
         let isValid = false
         if (this.formFields[field]) {

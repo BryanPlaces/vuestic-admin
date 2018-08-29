@@ -7,7 +7,7 @@
       v-bind:publickey="publickey"
       v-bind:privatekey="privatekey"
       >
-      <div slot="page1" class="form-wizard-tab-content">
+      <!-- <div slot="page1" class="form-wizard-tab-content">
         <h4>1.Login in Amazon with your Root Accout</h4>
         <img class="pasos" src="../../../assets/pasos/Paso1.png" alt="paso1">
         <h4>2.Acces to your Billing Dashboard</h4>
@@ -58,8 +58,8 @@
             {{messageAlert}}
           </div>          
         </div>
-      </div>
-      <div slot="page2" class="form-wizard-tab-content">
+      </div> -->
+      <div slot="page1" class="form-wizard-tab-content">
         <h4>Insert your public key</h4>
         
         <div class="form-group with-icon-right"
@@ -85,7 +85,7 @@
           </div>          
         </div>
       </div>
-      <div slot="page3" class="form-wizard-tab-content">
+      <div slot="page2" class="form-wizard-tab-content">
         <h4>Insert your private key</h4>
    
         <div class="form-group with-icon-right"
@@ -108,7 +108,7 @@
         </div>
 
       </div>
-      <div slot="page4" class="form-wizard-tab-content">
+      <div slot="page3" class="form-wizard-tab-content">
         <h4>Confirm selection</h4>
       </div>
       <div slot="wizardCompleted"
@@ -134,7 +134,7 @@
       return {
         steps: [
           {
-            label: 'Step 1. Amazon Bill',
+            label: 'Step 1. Public Key',
             slot: 'page1',
             onNext: () => {
               this.validateFormField('name')
@@ -144,18 +144,8 @@
             }
           },
           {
-            label: 'Step 2. Public Key',
+            label: 'Step 2. Private Key',
             slot: 'page2',
-            onNext: () => {
-              this.validateFormField('name')
-            },
-            isValid: () => {
-              return this.isFormFieldValid('name')
-            }
-          },
-          {
-            label: 'Step 3. Private Key',
-            slot: 'page3',
             onNext: () => {
               this.validateFormField('name')
             },
@@ -164,8 +154,8 @@
             }            
           },
           {
-            label: 'Step 4. Confirm',
-            slot: 'page4'
+            label: 'Step 3. Confirm',
+            slot: 'page3'
           }
         ],
         selectedCountry: '',

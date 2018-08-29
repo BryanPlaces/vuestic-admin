@@ -12,15 +12,15 @@
 
 
 
-        <sidebar-link
-          :to="{ name: 'charts' }">
-          <span slot="title">
-          <span
-            class="sidebar-menu-item-icon vuestic-icon vuestic-icon-statistics"></span>
+        <!-- // <sidebar-link
+        //   :to="{ name: 'charts' }">
+        //   <span slot="title">
+        //   <span
+        //     class="sidebar-menu-item-icon vuestic-icon vuestic-icon-statistics"></span>
 
-            <span>{{ $t('menu.statistics') }}</span>
-          </span>
-        </sidebar-link>
+        //     <span>{{ $t('menu.statistics') }}</span>
+        //   </span>
+        // </sidebar-link> -->
 
 
       <!-- <sidebar-link-group>

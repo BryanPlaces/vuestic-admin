@@ -1,8 +1,6 @@
 <template>
   <div class="dashboard">
 
-    <!-- <dashboard-info-widgets></dashboard-info-widgets> -->
-
     <vuestic-widget class="no-padding no-v-padding">
       <vuestic-tabs
         :names="[$t('dashboard.dataVisualization'), $t('Insert Keys')]"
@@ -10,29 +8,17 @@
         <div :slot="$t('dashboard.dataVisualization')">
           <data-visualisation-tab></data-visualisation-tab>
         </div>
-        <!-- <div :slot="$t('dashboard.usersAndMembers')">
-          <users-members-tab></users-members-tab>
-        </div> -->
         <div :slot="$t('Insert Keys')">
           <setup-profile-tab></setup-profile-tab>
         </div>
-        <!-- <div :slot="$t('dashboard.features')">
-          <features-tab></features-tab>
-        </div> -->
       </vuestic-tabs>
         <div v-if="messageAlert != ''">
             <label><b>{{messageAlert}}</b></label>
-        </div>      
+        </div>   
+
     </vuestic-widget>
 
-
     <div class="row">
-      <!-- <div class="col-md-6">
-        <vuestic-widget class="chart-widget" :headerText="'Costs per day' | translate">
-          <vuestic-chart :data="verticalBarChartData" type="vertical-bar"></vuestic-chart>
-          <button v-on:click="awsapiCallDay">Peticion</button>
-        </vuestic-widget>
-      </div> -->
       <div class="col-md-6">
         <vuestic-widget class="chart-widget" :headerText="'Costs per month' | translate">
           <input id="date" type="date" v-model="fechaInicial" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
@@ -62,12 +48,6 @@
 
   import axios from 'axios'
 
-
-  import store from 'vuex-store'
-  let palette = store.getters.palette
-  console.log("yaco el puto x100")
-  console.log(palette)
-
   export default {
     name: 'dashboard',
 
@@ -94,6 +74,7 @@
     },
     created() {
       this.getUser();
+      this.getCSV();
     },
     //watch: this.horizontalBarChartData,
 
@@ -127,25 +108,31 @@
             console.log(error);
           });
       },
+      getCSV() {
+        axios.get(process.env.ROOT_API + `/awsapi/allmonth`, {headers:{Authorization:this.$route.params.token}})
+          .then( res => {
+            res
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      },
 
       awsapiCall(){
         axios.get(process.env.ROOT_API +'/awsapi/?publicAWSKey='+this.publickey+'&privateAWSKey='+ this.privatekey, {headers:{Authorization:this.$route.params.token}})
         .then( res =>  {
           this.cost=res.data.ResultsByTime
 
-          console.log("Llamada a awsapiCall()")
           let diaInicial = parseInt(this.fechaInicial.substring(8,10))
           let diaFinal = parseInt(this.fechaFinal.substring(8,10))
 
           let diasMostrar = [];
           let c = 0;
-          for (let i = (diaInicial-1); i < (diaFinal-1); i++) {
+          for (let i = (diaInicial-1); i < (diaFinal); i++) {
             diasMostrar[c] = parseFloat(this.cost[i].Total.AmortizedCost.Amount)
-            console.log(diasMostrar[c] + "        ---------------")
             c++
             
           }
-          console.log("dia inicial " + diaInicial)
 
           let horizontal= {
             labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12','13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24','25','26','27'],
@@ -154,17 +141,10 @@
                 label: 'AmortizedCost',
                 backgroundColor: "#e34a4a",
                 borderColor: "transparent",
-                data: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]             
+                data: []
               }
             ]
           }
-          console.log("horizontal¿?¿?¿?¿?¿")
-          console.log(horizontal)
-          console.log("horizontal¿?¿?¿?¿?¿")
-           
-
-
-
 
           this.horizontalBarChartData=horizontal
           horizontal.datasets[0].data==[]
@@ -176,30 +156,21 @@
           let mierda = diaInicial;
 
           //for actualiza labels
-          for (let i = 0; i < (diaFinal-diaInicial); i++) {
+          for (let i = 0; i < (diaFinal-diaInicial+1); i++) {
             horizontal.labels[i]=mierda+'';
             mierda++;
           }
-          horizontal.labels.length=(diaFinal-diaInicial);
-            let i = 0;
-            console.log("este es el dia inicial   " + diaInicial )
-            console.log("este es el dia final   " + diaFinal )
 
-            for (let j = (diaInicial-1); j <(diaFinal-1); j++) {
+          horizontal.labels.length=(diaFinal-diaInicial+1);
+          
+          let i = 0;
+            
+          for (let j = (0); j <(diaFinal); j++) {
             horizontal.datasets[0].data[j]=diasMostrar[i];
             console.log(horizontal.datasets[0].data[j])
             i++;
-            }
-
-
-            console.log("@@@@@@@@@@@@@@@@@@@@@@@@@")
-            console.log(horizontal);
-            console.log("*************************")
-
-            console.log("@@@@@@@@@@@@@@@@@@@@@@@@@")
-            console.log(this.horizontalBarChartData);
-            console.log("*************************")            
-            this.horizontalBarChartData=horizontal
+          }
+          this.horizontalBarChartData=horizontal
             
         })
         .catch(function (error) {

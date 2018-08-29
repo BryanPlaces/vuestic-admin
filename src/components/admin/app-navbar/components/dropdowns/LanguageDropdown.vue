@@ -1,5 +1,6 @@
 <template>
-  <div class="language-dropdown dropdown navbar-dropdown" v-dropdown>
+  <div></div>
+  <!-- <div class="language-dropdown dropdown navbar-dropdown" v-dropdown>
     <a class="language-dropdown-button dropdown-toggle" href="#">
       <span class="flag-icon flag-icon-large" :class="flagIconClass(currentLanguage())"></span>
     </a>
@@ -15,7 +16,7 @@
         </span>
       </a>
     </div>
-  </div>
+  </div> -->
 </template>
 
 <script>

@@ -1,7 +1,8 @@
 <template>
-  <span class="header-selector i-menu-expanded"
+  <div></div>
+  <!-- <span class="header-selector i-menu-expanded"
        @click="$emit('update:isOpen', !isOpen)"
-  />
+  /> -->
 </template>
 
 <script>

@@ -1,5 +1,6 @@
 <template>
-  <div class="col nav-item dropdown navbar-dropdown" v-dropdown>
+  <div></div>
+  <!-- <div class="col nav-item dropdown navbar-dropdown" v-dropdown>
     <a class="nav-link dropdown-toggle" href="#">
       <span class="i-nav-notification"></span>
     </a>
@@ -15,7 +16,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 </template>
 
 <script>

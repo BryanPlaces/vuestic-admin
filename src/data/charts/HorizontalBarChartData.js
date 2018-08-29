@@ -8,7 +8,7 @@ export default {
       label: 'AmortizedCost',
       backgroundColor: palette.danger,
       borderColor: palette.transparent,
-      data: [80, 90, 50, 70, 60, 90, 50, 90, 80, 40, 72, 93]
+      data: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
     }
   ]
 }

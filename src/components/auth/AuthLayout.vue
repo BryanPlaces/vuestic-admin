@@ -7,7 +7,7 @@
       </div>
       <div class="auth-wallpaper col-6 d-none d-lg-flex">
         <div class="oblique"></div>
-        <router-link class="i-vuestic" :to="{path: '/'}"></router-link>
+        <!-- <router-link class="i-vuestic" :to="{path: '/'}"></router-link> -->
       </div>
     </div>
   </div>

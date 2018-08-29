@@ -27,11 +27,12 @@
 
 
     <div class="row">
-      <div class="col-md-6">
+      <!-- <div class="col-md-6">
         <vuestic-widget class="chart-widget" :headerText="'Costs per day' | translate">
           <vuestic-chart :data="verticalBarChartData" type="vertical-bar"></vuestic-chart>
+          <button v-on:click="awsapiCallDay">Peticion</button>
         </vuestic-widget>
-      </div>
+      </div> -->
       <div class="col-md-6">
         <vuestic-widget class="chart-widget" :headerText="'Costs per month' | translate">
           <input id="date" type="date" v-model="fechaInicial" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
@@ -61,6 +62,12 @@
 
   import axios from 'axios'
 
+
+  import store from 'vuex-store'
+  let palette = store.getters.palette
+  console.log("yaco el puto x100")
+  console.log(palette)
+
   export default {
     name: 'dashboard',
 
@@ -88,6 +95,7 @@
     created() {
       this.getUser();
     },
+    //watch: this.horizontalBarChartData,
 
     methods: {
       launchEpicmaxToast () {
@@ -124,54 +132,75 @@
         axios.get(process.env.ROOT_API +'/awsapi/?publicAWSKey='+this.publickey+'&privateAWSKey='+ this.privatekey, {headers:{Authorization:this.$route.params.token}})
         .then( res =>  {
           this.cost=res.data.ResultsByTime
-/*
-          console.log(this.cost)
 
-          console.log(this.cost[0].Total.AmortizedCost.Amount)
-          console.log(this.cost[0].Total.BlendedCost.Amount)
-          console.log(this.cost[0].Total.UnblendedCost.Amount)
-
-          console.log(this.verticalBarChartData.datasets[1].data)
-          console.log(this.verticalBarChartData.labels)
-          
-          let long = this.verticalBarChartData.datasets[1].data.length;
-          console.log(long + "             ññññññññññññññ")
-          for(let i = 0; i < 3; i++) {
-            for (let j = 0; j < long; j++) {
-              
-            this.verticalBarChartData.datasets[i].data[j]==2.15;
-            console.log(this.verticalBarChartData.datasets[i].data[j])
-            }
-          }*/
-          /////////////////////////////////////////////////////////////////////
-          console.log("ESTO ES UNA MIERDADAADADADAD")
-          console.log(this.cost)
+          console.log("Llamada a awsapiCall()")
           let diaInicial = parseInt(this.fechaInicial.substring(8,10))
           let diaFinal = parseInt(this.fechaFinal.substring(8,10))
-          let long = this.verticalBarChartData.datasets[1].data.length;
 
           let diasMostrar = [];
           let c = 0;
           for (let i = (diaInicial-1); i < (diaFinal-1); i++) {
             diasMostrar[c] = parseFloat(this.cost[i].Total.AmortizedCost.Amount)
             console.log(diasMostrar[c] + "        ---------------")
-            console.log(Number.isInteger(diasMostrar[c]))
             c++
-
-            //this.horizontalBarChartData.datasets.data[]
             
           }
-          // console.log(diasMostrar)
-          // console.log(this.HorizontalBarChartData.datasets[0].data)
-          // this.HorizontalBarChartData.datasets[0].data==222;
+          console.log("dia inicial " + diaInicial)
 
-            for (let j = 0; j < diasMostrar.length; j++) {
-            this.horizontalBarChartData.datasets[0].data[j]=2.15;
-            console.log(this.horizontalBarChartData.datasets[0].data[j])
+          let horizontal= {
+            labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12','13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24','25','26','27'],
+            datasets: [
+              {
+                label: 'AmortizedCost',
+                backgroundColor: "#e34a4a",
+                borderColor: "transparent",
+                data: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]             
+              }
+            ]
+          }
+          console.log("horizontal¿?¿?¿?¿?¿")
+          console.log(horizontal)
+          console.log("horizontal¿?¿?¿?¿?¿")
+           
+
+
+
+
+          this.horizontalBarChartData=horizontal
+          horizontal.datasets[0].data==[]
+          horizontal.labels==[]
+
+          // this.horizontalBarChartData.datasets[0].data==[]
+          // this.horizontalBarChartData.labels==[]
+
+          let mierda = diaInicial;
+
+          //for actualiza labels
+          for (let i = 0; i < (diaFinal-diaInicial); i++) {
+            horizontal.labels[i]=mierda+'';
+            mierda++;
+          }
+          horizontal.labels.length=(diaFinal-diaInicial);
+            let i = 0;
+            console.log("este es el dia inicial   " + diaInicial )
+            console.log("este es el dia final   " + diaFinal )
+
+            for (let j = (diaInicial-1); j <(diaFinal-1); j++) {
+            horizontal.datasets[0].data[j]=diasMostrar[i];
+            console.log(horizontal.datasets[0].data[j])
+            i++;
             }
-          
 
 
+            console.log("@@@@@@@@@@@@@@@@@@@@@@@@@")
+            console.log(horizontal);
+            console.log("*************************")
+
+            console.log("@@@@@@@@@@@@@@@@@@@@@@@@@")
+            console.log(this.horizontalBarChartData);
+            console.log("*************************")            
+            this.horizontalBarChartData=horizontal
+            
         })
         .catch(function (error) {
           console.log(error);

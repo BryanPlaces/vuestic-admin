@@ -27,11 +27,12 @@
 
 
     <div class="row">
-      <div class="col-md-6">
+      <!-- <div class="col-md-6">
         <vuestic-widget class="chart-widget" :headerText="'Costs per day' | translate">
           <vuestic-chart :data="verticalBarChartData" type="vertical-bar"></vuestic-chart>
+          <button v-on:click="awsapiCallDay">Peticion</button>
         </vuestic-widget>
-      </div>
+      </div> -->
       <div class="col-md-6">
         <vuestic-widget class="chart-widget" :headerText="'Costs per month' | translate">
           <input id="date" type="date" v-model="fechaInicial" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
@@ -153,7 +154,8 @@
                 label: 'AmortizedCost',
                 backgroundColor: "#e34a4a",
                 borderColor: "transparent",
-                data: [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]              }
+                data: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]             
+              }
             ]
           }
           console.log("horizontal¿?¿?¿?¿?¿")

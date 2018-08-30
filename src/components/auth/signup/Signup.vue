@@ -71,6 +71,7 @@ export default {
 
       let emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
 
+
       this.verificarCorreoUnico();
       if(this.input.name.length<6) {
         alert("Username debe tener una longitud superior a 5 caracteres")

@@ -1,8 +1,10 @@
 <template>
   <div class="login">
     <h2>{{'auth.login' | translate}}</h2>
-    <form name="login">
+    <!-- <form name="login"> -->
       <div class="form-group">
+
+
         <div class="input-group">
           <input type="text" id="email" required="required" v-model="input.email"/>
           <label class="control-label" for="email">{{'auth.email' | translate}}</label><i class="bar"></i>
@@ -20,8 +22,9 @@
         </button>
         <router-link class='link' :to="{name: 'signup'}">{{'auth.createAccount' | translate}}</router-link>
       </div>
-    </form>
+    <!-- </form> -->
   </div>
+
 </template>
 
 <script>
@@ -34,13 +37,14 @@ export default {
         name: '',
         email: '',
         password: '',
-        message: '',
       }
     }
   },
   methods: {
-    login () {
+    login:async function () {
       console.log(process.env.ROOT_API);
+      console.log("esta mierda entra")
+      let login = axios.post(process.env.ROOT_API + '/users/login', { 'email': this.input.email, 'password': this.input.password })
       axios.post(process.env.ROOT_API + '/users/login', { 'email': this.input.email, 'password': this.input.password })
         .then(res => {
           if (res.status === 200) {
@@ -49,7 +53,9 @@ export default {
         })
         .catch(function (error) {
           console.log(error)
+          alert("Correo o contraseña invalidas")
         })
+      let waiting = await login
     },
   }
 }

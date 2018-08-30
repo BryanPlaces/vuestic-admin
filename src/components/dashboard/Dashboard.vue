@@ -46,15 +46,11 @@ import SetupProfileTab from "./setup-profile-tab/SetupProfileTab.vue";
 import FeaturesTab from "./features-tab/FeaturesTab.vue";
 import DataVisualisationTab from "./data-visualisation-tab/DataVisualisation.vue";
 import DashboardBottomWidgets from "./DashboardBottomWidgets.vue";
-
 import VerticalBarChartData from "data/charts/VerticalBarChartData";
 import HorizontalBarChartData from "data/charts/HorizontalBarChartData";
-
 import axios from "axios";
-
 export default {
   name: "dashboard",
-
   data() {
     return {
       verticalBarChartData: VerticalBarChartData,
@@ -79,7 +75,6 @@ export default {
     this.getUser();
   },
   //watch: this.horizontalBarChartData,
-
   methods: {
     launchEpicmaxToast() {
       this.showToast(`Let's work together!`, {
@@ -93,7 +88,6 @@ export default {
         }
       });
     },
-
     getUser() {
       axios
         .get(process.env.ROOT_API + `/secure/users/` + this.$route.params.id, {
@@ -134,7 +128,6 @@ export default {
         link.click();
       });
     },
-
     awsapiCall() {
       axios
         .get(
@@ -147,10 +140,8 @@ export default {
         )
         .then(res => {
           this.cost = res.data.ResultsByTime;
-
           let diaInicial = parseInt(this.fechaInicial.substring(8, 10));
           let diaFinal = parseInt(this.fechaFinal.substring(8, 10));
-
           let diasMostrar = [];
           let c = 0;
           for (let i = diaInicial - 1; i < diaFinal; i++) {
@@ -159,7 +150,6 @@ export default {
             );
             c++;
           }
-
           let horizontal = {
             labels: [
               "1",
@@ -199,26 +189,19 @@ export default {
               }
             ]
           };
-
           this.horizontalBarChartData = horizontal;
           horizontal.datasets[0].data == [];
           horizontal.labels == [];
-
           // this.horizontalBarChartData.datasets[0].data==[]
           // this.horizontalBarChartData.labels==[]
-
           let mierda = diaInicial;
-
           //for actualiza labels
           for (let i = 0; i < diaFinal - diaInicial + 1; i++) {
             horizontal.labels[i] = mierda + "";
             mierda++;
           }
-
           horizontal.labels.length = diaFinal - diaInicial + 1;
-
           let i = 0;
-
           for (let j = 0; j < diaFinal; j++) {
             horizontal.datasets[0].data[j] = diasMostrar[i];
             console.log(horizontal.datasets[0].data[j]);
@@ -251,7 +234,6 @@ export default {
           console.log(error);
         });
     },
-
     awsapiCall3() {
       axios
         .get(
@@ -275,6 +257,7 @@ export default {
     }
   }
 };
+
 </script>
 <style lang="scss" scoped>
 </style>

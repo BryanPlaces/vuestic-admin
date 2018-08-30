@@ -6,13 +6,13 @@
 
 
         <div class="input-group">
-          <input type="text" id="email" required="required" v-model="input.email"/>
+          <input type="text" id="email" required="required" @keyup.enter="login" v-model="input.email"/>
           <label class="control-label" for="email">{{'auth.email' | translate}}</label><i class="bar"></i>
         </div>
       </div>
       <div class="form-group">
         <div class="input-group">
-          <input type="password" id="password" required="required" v-model="input.password"/>
+          <input type="password" id="password" required="required" @keyup.enter="login" v-model="input.password"/>
           <label class="control-label" for="password">{{'auth.password' | translate}}</label><i class="bar"></i>
         </div>
       </div>

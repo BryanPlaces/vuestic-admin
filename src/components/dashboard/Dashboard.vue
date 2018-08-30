@@ -100,7 +100,12 @@ export default {
           if (res.data.isActive == false) {
             this.messageAlert =
               "Tu correo no está verificado, por favor, verificalo para poder continuar";
-          } else {
+          }
+          if (res.data.isActive == true) {
+            this.messageAlert = "Usuario registrado."
+          }
+          
+          else {
             if (
               res.data.publicAWSKey != null ||
               (res.data.publicAWSKey != "" && res.data.privateAWSKey != null) ||

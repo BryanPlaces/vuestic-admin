@@ -5,7 +5,7 @@
       <!-- input name -->
       <div class="form-group">
         <div class="input-group">
-          <input type="text" id="password" required="required" v-model="input.name"/>
+          <input type="text" id="password" required="required" @keyup.enter="insertUser" v-model="input.name"/>
           <label class="control-label" for="password">Username</label><i class="bar"></i>
         </div>
       </div>
@@ -13,7 +13,7 @@
       <!-- input email -->
       <div class="form-group">
         <div class="input-group">
-          <input type="text" id="email" required="required" v-model="input.email"/>
+          <input type="text" id="email" required="required" @keyup.enter="insertUser" v-model="input.email"/>
           <label class="control-label" for="email">{{'auth.email' | translate}}</label><i class="bar"></i>
         </div>
       </div>
@@ -21,7 +21,7 @@
       <!-- input password -->
       <div class="form-group">
         <div class="input-group">
-          <input type="password" id="password" required="required" v-model="input.password"/>
+          <input type="password" id="password" required="required" @keyup.enter="insertUser" v-model="input.password" />
           <label class="control-label" for="password">{{'auth.password' | translate}}</label><i class="bar"></i>
         </div>
       </div>
@@ -29,7 +29,7 @@
       <!-- input password validate -->
       <div class="form-group">
         <div class="input-group">
-          <input type="password" id="password" required="required" v-model="input.passwordv"/>
+          <input type="password" id="password" required="required" @keyup.enter="insertUser" v-model="input.passwordv"/>
           <label class="control-label" for="password">{{'auth.password' | translate}}</label><i class="bar"></i>
         </div>
       </div>

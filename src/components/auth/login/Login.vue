@@ -41,21 +41,22 @@ export default {
     }
   },
   methods: {
-    login:async function () {
-      console.log(process.env.ROOT_API);
-      console.log("esta mierda entra")
-      let login = axios.post(process.env.ROOT_API + '/users/login', { 'email': this.input.email, 'password': this.input.password })
+    login () {
       axios.post(process.env.ROOT_API + '/users/login', { 'email': this.input.email, 'password': this.input.password })
-        .then(res => {
+        .then(res => { 
           if (res.status === 200) {
-            this.$router.replace({name: 'dashboard', params: { nombre: res.data.nombre, id: res.data.id, token: res.data.token, actualizado:false }})
+            console.log(res.data)
+            if(res.data.isActive==true) {
+              this.$router.replace({name: 'dashboard', params: { nombre: res.data.nombre, id: res.data.id, token: res.data.token, actualizado:false }})
+            }else {
+              alert("Por favor verifica tu correo para acceder a tu cuenta")
+            }
           }
         })
         .catch(function (error) {
           console.log(error)
           alert("Correo o contraseña invalidas")
         })
-      let waiting = await login
     },
   }
 }

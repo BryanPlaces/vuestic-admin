@@ -92,25 +92,15 @@ export default {
       });
     },
     getUser() {
-      axios
-        .get(process.env.ROOT_API + `/secure/users/` + this.$route.params.id, {
-          headers: { Authorization: this.$route.params.token }
-        })
+      axios.get(process.env.ROOT_API + `/secure/users/` + this.$route.params.id, {headers: { Authorization: this.$route.params.token }})
         .then(res => {
           if (res.data.isActive == false) {
-            this.messageAlert =
-              "Tu correo no está verificado, por favor, verificalo para poder continuar";
+            this.messageAlert ="Tu correo no está verificado, por favor, verificalo para poder continuar";
           }
           if (res.data.isActive == true) {
             this.messageAlert = "Usuario registrado."
-          }
-          
-          else {
-            if (
-              res.data.publicAWSKey != null ||
-              (res.data.publicAWSKey != "" && res.data.privateAWSKey != null) ||
-              res.data.privateAWSKey != ""
-            ) {
+          }else {
+            if (res.data.publicAWSKey != null ||(res.data.publicAWSKey != "" && res.data.privateAWSKey != null) ||res.data.privateAWSKey != "") {
               this.publickey = res.data.publicAWSKey;
               this.privatekey = res.data.privateAWSKey;
             }

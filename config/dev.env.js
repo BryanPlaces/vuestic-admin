@@ -4,6 +4,6 @@ const prodEnv = require('./prod.env')
 
 module.exports = merge(prodEnv, {
   NODE_ENV: '"development"',
-  ROOT_API: '"http://localhost:4000"',
-  PROD_URL: '"http://billycost.hopto.org:4000"'
+  ROOT_API: '"http://52.30.78.139:3030"',
+  PROD_URL: '"http://52.30.78.139:3030"'
 })

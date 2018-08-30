@@ -68,22 +68,29 @@ export default {
   },
   methods: {
     insertUser () {
+
+      let emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
+
       this.verificarCorreoUnico();
       if(this.input.name.length<6) {
         alert("Username debe tener una longitud superior a 5 caracteres")
       }
-      if (this.input.password === this.input.passwordv) {
-        axios.post(process.env.ROOT_API+'/users', {'nombre': this.input.name, 'email': this.input.email, 'password': this.input.password})
-          .then(res => {
-            console.log(res)
-            alert("Te has registrado satisfactoriamente. Por favor, verifica tu email para activar tu cuenta")
-          })
-          .catch(function (error) {
-            console.log(error)
-          })
-      } else {
-        alert('Verifica que ambas contraseñas son idénticas')
-        //this.input.message = 'Verifica que ambas contraseñas son idénticas'
+
+      if (emailRegex.test(this.input.email)) {
+        if (this.input.password === this.input.passwordv) {
+          axios.post(process.env.ROOT_API+'/users', {'nombre': this.input.name, 'email': this.input.email, 'password': this.input.password})
+            .then(res => {
+              console.log(res)
+              alert("Te has registrado satisfactoriamente. Por favor, verifica tu email para activar tu cuenta")
+            })
+            .catch(function (error) {
+              console.log(error)
+            })
+        } else {
+          alert('Verifica que ambas contraseñas son idénticas')
+        }
+      }else {
+        alert("El correo que se ha introducido no es valido")
       }
     },
     verificarCorreoUnico() {

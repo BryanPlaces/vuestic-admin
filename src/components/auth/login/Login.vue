@@ -45,10 +45,9 @@ export default {
       console.log(process.env.ROOT_API);
       console.log("esta mierda entra")
       let login = axios.post(process.env.ROOT_API + '/users/login', { 'email': this.input.email, 'password': this.input.password })
+      axios.post(process.env.ROOT_API + '/users/login', { 'email': this.input.email, 'password': this.input.password })
         .then(res => {
-          console.log("esta mierda entra x2")
           if (res.status === 200) {
-            console.log("esta mierda entra x3")
             this.$router.replace({name: 'dashboard', params: { nombre: res.data.nombre, id: res.data.id, token: res.data.token, actualizado:false }})
           }
         })

@@ -71,7 +71,6 @@ export default {
 
       let emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
 
-
       this.verificarCorreoUnico();
       if(this.input.name.length<6) {
         alert("Username debe tener una longitud superior a 5 caracteres")
@@ -81,7 +80,6 @@ export default {
         if (this.input.password === this.input.passwordv) {
           axios.post(process.env.ROOT_API+'/users', {'nombre': this.input.name, 'email': this.input.email, 'password': this.input.password})
             .then(res => {
-              console.log(res)
               alert("Te has registrado satisfactoriamente. Por favor, verifica tu email para activar tu cuenta")
             })
             .catch(function (error) {
@@ -97,7 +95,6 @@ export default {
     verificarCorreoUnico() {
         axios.get(process.env.ROOT_API+'/users/')
           .then(res => {
-            console.log(res.data)
             for(let i = 0; i < res.data.length; i++) {
               if(res.data[i].email==this.input.email) {
                 alert("Este correo ya se encuentra registrado")

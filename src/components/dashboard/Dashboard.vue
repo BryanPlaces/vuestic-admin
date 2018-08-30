@@ -128,10 +128,11 @@
 
           let diasMostrar = [];
           let c = 0;
+
           for (let i = (diaInicial-1); i < (diaFinal); i++) {
             diasMostrar[c] = parseFloat(this.cost[i].Total.AmortizedCost.Amount)
+            console.log(diasMostrar[c])
             c++
-            
           }
 
           let horizontal= {
@@ -179,7 +180,62 @@
       },
       awsapiCall2() {
         axios.get(process.env.ROOT_API +'/awsapi/day?dayStart=' + this.fechaInicial + '&dayEnd='+ this.fechaFinal +'publicAWSKey='+this.publickey+'&privateAWSKey='+ this.privatekey, {headers:{Authorization:this.$route.params.token}})
-        .then( res =>  {console.log("mierda")})
+        .then( res =>  {
+
+                    this.cost=res.data.ResultsByTime
+
+          let diaInicial = parseInt(this.fechaInicial.substring(8,10))
+          let diaFinal = parseInt(this.fechaFinal.substring(8,10))
+
+          let diasMostrar = [];
+          let c = 0;
+          for (let i = (diaInicial-1); i < (diaFinal); i++) {
+            diasMostrar[c] = parseFloat(this.cost[i].Total.AmortizedCost.Amount)
+            c++
+            
+          }
+
+          let horizontal= {
+            labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12','13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24','25','26','27'],
+            datasets: [
+              {
+                label: 'AmortizedCost',
+                backgroundColor: "#e34a4a",
+                borderColor: "transparent",
+                data: []
+              }
+            ]
+          }
+
+          this.horizontalBarChartData=horizontal
+          horizontal.datasets[0].data==[]
+          horizontal.labels==[]
+
+          // this.horizontalBarChartData.datasets[0].data==[]
+          // this.horizontalBarChartData.labels==[]
+
+          let mierda = diaInicial;
+
+          //for actualiza labels
+          for (let i = 0; i < (diaFinal-diaInicial+1); i++) {
+            horizontal.labels[i]=mierda+'';
+            mierda++;
+          }
+
+          horizontal.labels.length=(diaFinal-diaInicial+1);
+          
+          let i = 0;
+            
+          for (let j = (0); j <(diaFinal); j++) {
+            horizontal.datasets[0].data[j]=diasMostrar[i];
+            console.log(horizontal.datasets[0].data[j])
+            i++;
+          }
+          this.horizontalBarChartData=horizontal
+
+
+
+        })
         .catch(function (error) {
           console.log(error);
         });        
@@ -187,13 +243,69 @@
 
       awsapiCall3() {
         axios.get(process.env.ROOT_API +'/awsapi/month?monthStart=' + this.fechaInicial + '&monthEnd='+ this.fechaFinal +'publicAWSKey='+this.publickey+'&privateAWSKey='+ this.privatekey, {headers:{Authorization:this.$route.params.token}})
-        .then( res =>  {console.log("mierda")})
+        .then( res =>  {
+
+          this.cost=res.data.ResultsByTime
+
+          let diaInicial = parseInt(this.fechaInicial.substring(8,10))
+          let diaFinal = parseInt(this.fechaFinal.substring(8,10))
+
+          let diasMostrar = [];
+          let c = 0;
+          for (let i = (diaInicial-1); i < (diaFinal); i++) {
+            diasMostrar[c] = parseFloat(this.cost[i].Total.AmortizedCost.Amount)
+            c++
+            
+          }
+
+          let horizontal= {
+            labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12','13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24','25','26','27'],
+            datasets: [
+              {
+                label: 'AmortizedCost',
+                backgroundColor: "#e34a4a",
+                borderColor: "transparent",
+                data: []
+              }
+            ]
+          }
+
+          this.horizontalBarChartData=horizontal
+          horizontal.datasets[0].data==[]
+          horizontal.labels==[]
+
+          // this.horizontalBarChartData.datasets[0].data==[]
+          // this.horizontalBarChartData.labels==[]
+
+          let mierda = diaInicial;
+
+          //for actualiza labels
+          for (let i = 0; i < (diaFinal-diaInicial+1); i++) {
+            horizontal.labels[i]=mierda+'';
+            mierda++;
+          }
+
+          horizontal.labels.length=(diaFinal-diaInicial+1);
+          
+          let i = 0;
+            
+          for (let j = (0); j <(diaFinal); j++) {
+            horizontal.datasets[0].data[j]=diasMostrar[i];
+            console.log(horizontal.datasets[0].data[j])
+            i++;
+          }
+          this.horizontalBarChartData=horizontal
+
+
+
+
+
+        })
         .catch(function (error) {
           console.log(error);
         });        
-      }
-
-
+      },
+      
     }
   }
 

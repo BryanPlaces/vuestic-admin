@@ -1,7 +1,7 @@
 <template>
   <div class="signup">
     <h2>{{'auth.createNewAccount' | translate}}</h2>
-    <form name="signup">
+    <!-- <form name="signup"> -->
       <!-- input name -->
       <div class="form-group">
         <div class="input-group">
@@ -34,9 +34,9 @@
         </div>
       </div>
       <!-- FIN input password validate-->
-        <div v-if="input.message != ''">
+        <!-- <div v-if="input.message != ''">
           <label class="control-label" for="password">{{input.message}}</label><i class="bar"></i>
-        </div>
+        </div> -->
 
 
 
@@ -46,7 +46,7 @@
         </button>
         <router-link class='link' :to="{name: 'login'}">{{'auth.alreadyJoined' | translate}}</router-link>
       </div>
-    </form>
+    <!-- </form> -->
   </div>
 </template>
 
@@ -68,17 +68,37 @@ export default {
   },
   methods: {
     insertUser () {
+      this.verificarCorreoUnico();
+      if(this.input.name.length<6) {
+        alert("Username debe tener una longitud superior a 5 caracteres")
+      }
       if (this.input.password === this.input.passwordv) {
         axios.post(process.env.ROOT_API+'/users', {'nombre': this.input.name, 'email': this.input.email, 'password': this.input.password})
           .then(res => {
-            this.input.message = 'Te has registrado satisfactoriamente. Por favor, verifica tu email para activar tu cuenta'
+            console.log(res)
+            alert("Te has registrado satisfactoriamente. Por favor, verifica tu email para activar tu cuenta")
           })
           .catch(function (error) {
             console.log(error)
           })
       } else {
-        this.input.message = 'Verifica que ambas contraseñas son idénticas'
+        alert('Verifica que ambas contraseñas son idénticas')
+        //this.input.message = 'Verifica que ambas contraseñas son idénticas'
       }
+    },
+    verificarCorreoUnico() {
+        axios.get(process.env.ROOT_API+'/users/')
+          .then(res => {
+            console.log(res.data)
+            for(let i = 0; i < res.data.length; i++) {
+              if(res.data[i].email==this.input.email) {
+                alert("Este correo ya se encuentra registrado")
+              }
+            }
+          })
+          .catch(function (error) {
+            console.log(error)
+          })      
     }
   }
 }
